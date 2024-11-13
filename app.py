@@ -6,7 +6,7 @@ import os
 from mysql.connector import Error
 
 
-model_path = 'C:\\Users\\Zoya\\Heart disease prediction\\heart_disease_model.pkl'
+model_path = 'heart_disease_model.pkl'
 with open(model_path, 'rb') as file:
     loaded_model = pickle.load(file)
 
