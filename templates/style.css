@@ -1,0 +1,67 @@
+.navbar {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #ffffff;
+}
+
+.navbar-dark .navbar-brand:hover {
+    color: #f8f9fa;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-color: #ffffff; 
+}
+
+.nav-link {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-right: 15px;
+}
+
+.nav-link:hover {
+    color: #e9ecef;
+}
+
+
+.dropdown-toggle::after {
+    display: none; 
+}
+
+.dropdown-menu {
+    background-color: #28a745;
+    border-radius: 5px;
+    border: none;
+}
+
+.dropdown-item {
+    color: #ffffff;
+    padding: 10px 20px;
+}
+
+.dropdown-item:hover {
+    background-color: #218838;
+    color: #ffffff;
+}
+
+.btn-success.dropdown-toggle {
+    color: #ffffff;
+    background-color: #28a745;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn-success.dropdown-toggle:hover {
+    background-color: #218838;
+}
+
+.paint-card {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}

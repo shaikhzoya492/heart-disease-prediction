@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .btn-lime {
+            background-color: #00ff00;
+            color: black;
+        }
+        
+        .btn-coral {
+            background-color: #ff7f50; 
+            color: black;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            flex: 1;
+        }
+        .result-message {
+            font-size: 1.5rem; /* You can adjust the size as needed */
+            font-weight: bold;  /* Makes the text bold */
+            font-family: 'Arial', sans-serif; /* You can change to a different font if preferred */
+        }
+        
+        .btn-custom {
+            width: 150px;
+        }
+    </style>
+    <script>
+        function showDietModal() {
+            const dietModal = new bootstrap.Modal(document.getElementById('dietModal'));
+            dietModal.show();
+        }
+        
+        function showWorkoutModal() {
+            const workoutModal = new bootstrap.Modal(document.getElementById('workoutModal'));
+            workoutModal.show();
+        }
+        function showPrecautionsModal() {
+    const precautionsModal = new bootstrap.Modal(document.getElementById('precautionsModal'));
+    precautionsModal.show();
+}
+
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index"><i class="fa-solid fa-heart-pulse"></i> HEART MAP</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active" href="{{ url_for('user_page') }}">HOME</a></li>
+            </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" 
+                        data-bs-toggle="dropdown" aria-expanded="false">User</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="user_login">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Prediction Result</h2>
+
+        <br><br>
+        <p class="lead text-center result-message" style="color: {{ 'red' if has_disease else 'green' }};">
+            {{ message }} 
+            <span>
+                {% if has_disease %}
+                    😢
+                {% else %}
+                    😊
+                {% endif %}
+            </span>
+        </p>
+        <br><br><br> 
+        {% if has_disease %}
+        <div class="text-center">
+            <a href="javascript:void(0);" class="btn btn-primary me-4 btn-custom" onclick="showWorkoutModal()">Workout</a>
+            <a href="javascript:void(0);" class="btn btn-info me-4 btn-custom" onclick="showDietModal()">Diets</a>
+            <a href="javascript:void(0);" class="btn btn-warning me-4 btn-custom" onclick="showPrecautionsModal()">Precautions</a>
+            <a href="{{ url_for('appointment') }}" class="btn btn-coral me-4 btn-custom">Appointment</a>
+            <a href="{{ url_for('select_doctor') }}" class="btn btn-lime me-4 btn-custom">Doctors</a>
+        </div>
+        {% endif %}
+        <br><br>
+        <div class="text-center">
+            <a href="/form" class="btn btn-success">Go Back</a>
+        </div>
+    </div>
+
+    <!-- Diet Modal -->
+    <div class="modal fade" id="dietModal" tabindex="-1" aria-labelledby="dietModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dietModalLabel">Healthy Diet Suggestions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Here are some diets that can help with heart disease:</p>
+                    <ul>
+                        <li><strong>Fruits and Vegetables:</strong> Aim for at least five servings a day.</li>
+                        <li><strong>Whole Grains: </strong>Brown rice, whole wheat bread, and oats are great options.</li>
+                        <li><strong>Lean Proteins:</strong> Include chicken, fish, and legumes in your diet.</li>
+                        <li><strong>Healthy Fats:</strong> Use olive oil and avocado instead of butter.</li>
+                        <li><strong>Low-Fat Dairy: </strong>Choose low-fat milk, yogurt, and cheese.</li>
+                    </ul>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workout Modal -->
+    <div class="modal fade" id="workoutModal" tabindex="-1" aria-labelledby="workoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="workoutModalLabel">Workout Suggestions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Here are some workouts that can help with heart disease:</p>
+                    <ul>
+                        <li><strong>Walking:</strong> A simple way to start exercising; aim for 30 minutes daily.</li>
+                        <li><strong>Cycling:</strong> Whether on a stationary bike or outdoors, cycling is a great cardiovascular workout.</li>
+                        <li><strong>Swimming:</strong> A low-impact exercise that is gentle on the joints and beneficial for the heart.</li>
+                        <li><strong>Yoga:</strong> Improves flexibility and reduces stress, which can positively impact heart health.</li>
+                        <li><strong>Strength Training:</strong> Building muscle can help improve your metabolic rate and overall health.</li>
+                    </ul>
+                </div>
+
+           
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+     <!-- Precautions Modal -->
+     <div class="modal fade" id="precautionsModal" tabindex="-1" aria-labelledby="precautionsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="precautionsModalLabel">Heart Health Precautions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Here are some precautions to take for better heart health:</p>
+                    <ul>
+                        <li><strong>Quit Smoking:</strong> Smoking is a major risk factor for heart disease.</li>
+                        <li><strong>Manage Stress:</strong> Consider techniques like mindfulness and meditation.</li>
+                        <li><strong>Regular Check-ups:</strong> Regularly visit your doctor for health screenings.</li>
+                        <li><strong>Monitor Blood Pressure:</strong> Keep track of your blood pressure levels.</li>
+                        <li><strong>Limit Alcohol:</strong> Drink in moderation and follow health guidelines.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="bg-success text-light text-center p-3 mt-auto">
+        <p>&copy; 2024 HEART MAP. Developed by Zoya Nawab Ali Shaikh. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

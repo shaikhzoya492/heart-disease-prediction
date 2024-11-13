@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Appointment</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            flex: 1;
+        }
+        .paint-card {
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index"><i class="fa-solid fa-heart-pulse"></i> HEART MAP</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active" href="{{ url_for('user_page') }}">HOME</a></li></ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" 
+                        data-bs-toggle="dropdown" aria-expanded="false">User</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="user_login">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container p-5">
+        <div class="row">
+            <div class="col-md-3 p-2"></div>
+            <div class="col-md-6">
+                <div class="card paint-card">
+                    <div class="card-body">
+                        <p class="text-center fs-3">User Appointment</p>
+                        {% if appointmentmessage %}
+<div id="appointmentMsg" class="fs-4 text-center text-success">
+    <p>{{ appointmentmessage }}</p>
+</div>
+{% endif %}
+
+                        <form action="{{ url_for('userappointment') }}" method="POST" onsubmit="return validateForm()">
+                            <div class="mb-3">
+                                <label for="fullname" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullname" name="fullname" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select class="form-select" id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="female">Other</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="age" name="age" min="1" max="100" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="appoindate" class="form-label">Appointment Date</label>
+                                <input type="date" class="form-control" id="appoindate" name="appoindate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phno" class="form-label">Phone No.</label>
+                                <input type="tel" class="form-control" id="phno" name="phno" minlength=10 maxlength=10 required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="diseases" class="form-label">Diseases</label>
+                                <input type="text" class="form-control" id="diseases" name="diseases" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="doctor" class="form-label">Doctor</label>
+                                <input type="text" class="form-control" id="doctor" name="doctor" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <textarea class="form-control" id="address" name="address" required></textarea>
+                            </div>
+                            <input type="hidden" name="userid" value="{{ userid }}"> 
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Submit Appointment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 p-2"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-3k2cV7aJvvWE/hU4b8C36aNkeUbKj/df8MCZ5dF+6T+HmpAabjNT4Rg4z/7HBYM+6" 
+            crossorigin="anonymous"></script>
+    <script>
+        function validateForm() {
+            const appoindateInput = document.getElementById('appoindate');
+            const ageInput = document.getElementById('age');
+            const today = new Date();
+            const appointmentDate = new Date(appoindateInput.value);
+            
+            // Set the min attribute for appointment date
+            appoindateInput.setAttribute('min', today.toISOString().split('T')[0]);
+
+            // Check if appointment date is in the future
+            if (appointmentDate <= today) {
+                alert("Appointment date must be in the future.");
+                return false;
+            }
+
+            // Check if age is valid
+            if (ageInput.value < 1) {
+                alert("Age must be at least 1.");
+                return false;
+            }
+
+            return true;
+        }
+
+        setTimeout(function() {
+            var msgElement = document.getElementById('appointmentMsg');
+            if (msgElement) {
+                msgElement.style.display = 'none';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
