@@ -14,10 +14,11 @@ app = Flask(__name__)
 app.secret_key = '111'
 
 db_config = {
-    'user': os.getenv('DB_USER', 'root'),
-    'password': os.getenv('DB_PASSWORD', 'root'),
-    'host': os.getenv('DB_HOST', 'localhost'),
-    'database': os.getenv('DB_NAME', 'heart_map'),
+    'user': os.getenv('DB_USER', 'root'),  
+    'password': os.getenv('DB_PASSWORD', 'root'), 
+    'host': os.getenv('DB_HOST', 'evil-hotels-share.loca.lt'), 
+    'port': os.getenv('DB_PORT', '5000'),  
+    'database': os.getenv('DB_NAME', 'heart_map'),  
     'charset': 'utf8'
 }
 
