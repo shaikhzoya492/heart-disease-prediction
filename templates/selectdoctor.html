@@ -59,9 +59,9 @@
                     <tbody>
                         {% for doctor in doctors %}
                         <tr>
-                            <td>{{ doctor.fullname }}</td>
-                            <td>{{ doctor.qualification }}</td>
-                            <td>{{ doctor.phone }}</td>
+                            <td>{{ doctor[0] }}</td>
+                            <td>{{ doctor[2] }}</td>
+                            <td>{{ doctor[4] }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
