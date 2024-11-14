@@ -1,3 +1,4 @@
+<!-- viewdoctors.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,11 +73,11 @@
                     <tbody>
                         {% for doctor in doctors %}
                         <tr>
-                            <td>{{ doctor.fullname }}</td>
-                            <td>{{ doctor.dob }}</td>
-                            <td>{{ doctor.qualification }}</td>
-                            <td>{{ doctor.email }}</td>
-                            <td>{{ doctor.phone }}</td>
+                            <td>{{ doctor[0] }}</td> <!-- Full Name (index 0) -->
+                            <td>{{ doctor[1] }}</td> <!-- DOB (index 1) -->
+                            <td>{{ doctor[2] }}</td> <!-- Qualification (index 2) -->
+                            <td>{{ doctor[3] }}</td> <!-- Email (index 3) -->
+                            <td>{{ doctor[4] }}</td> <!-- Phone (index 4) -->
                         </tr>
                         {% endfor %}
                     </tbody>
