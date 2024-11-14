@@ -40,7 +40,7 @@ def appointment():
     try:
         db = psycopg2.connect(**db_config)
         cursor = db.cursor()
-        cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
+        cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM public.appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
         flash(f'Error fetching appointment data: {str(e)}', 'danger')
@@ -86,7 +86,7 @@ def select_doctor():
     try:
         db = psycopg2.connect(**db_config)
         cursor = db.cursor()
-        cursor.execute("SELECT fullname, qualification, phone FROM doctors")
+        cursor.execute("SELECT fullname, qualification, phone FROM public.doctors")
         doctors = cursor.fetchall()
     except Error as e:
         flash(f'Error fetching doctor data: {str(e)}', 'danger')
@@ -211,7 +211,7 @@ def view_appointments():
     try:
         db = psycopg2.connect(**db_config)
         cursor = db.cursor()
-        cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
+        cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM public.appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
         flash(f'Error fetching appointment data: {str(e)}', 'danger')
@@ -230,7 +230,7 @@ def view_doctors():
     try:
         db = psycopg2.connect(**db_config)
         cursor = db.cursor()
-        cursor.execute("SELECT fullname, dob, qualification, email, phone FROM doctors")
+        cursor.execute("SELECT fullname, dob, qualification, email, phone FROM public.doctors")
         doctor_list = cursor.fetchall()
     except Error as e:
         flash(f'Error fetching doctor data: {str(e)}', 'danger')
