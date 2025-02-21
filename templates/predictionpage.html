@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="index"><i class="fa-solid fa-heart-pulse"></i> HEART MAP</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                  <a class="nav-link active" href="adminlogin"><i class="fa-solid fa-right-to-bracket"></i> ADMIN</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link active" href="doctorlogin">DOCTOR</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link active" href="predictionpage">PREDICTION</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link active" href="user_login">USER</a>
+              </li>
+          </ul>
+      </div>
+  </div>
+</nav>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    
+    <div class="carousel-inner">
+        <a href="{{ url_for('form') }}">
+        <div class="carousel-item active">
+            <img src="{{ url_for('static', filename='pre1.jpg') }}" class="d-block w-100" alt="Slide 1">
+        </div>
+    </a>
+    </div>
+    </div>
+    <!-- Container to hold the content -->
+    <div class="container py-5">
+        <!-- Heading for the page -->
+        <h1 class="display-4 text-center mb-4">Heart Disease Prediction: Empowering Individuals for a Healthier Future</h1>
+
+        <!-- Text content -->
+        <p class="lead">
+            Heart disease remains one of the leading causes of death globally, affecting millions of lives each year. However, with advancements in medical technology and machine learning, there is now hope for early detection and prevention. Heart disease prediction tools, such as the one available on this page, provide individuals with valuable insights into their heart health, helping them take proactive steps toward a healthier future.
+        </p>
+        <p>
+            The heart disease prediction model uses a variety of factors—such as age, gender, blood pressure, cholesterol levels, smoking status, and exercise habits—to assess an individual's risk of developing heart disease. By collecting and analyzing this data, we can predict whether an individual is at a higher risk and encourage early intervention before the condition becomes more severe.
+        </p>
+
+        <h2 class="text-center mt-4 mb-4">The Importance of Early Detection</h2>
+        <p>
+            Early detection of heart disease plays a crucial role in saving lives. Often, individuals with heart disease may not exhibit noticeable symptoms until it is too late. This makes it essential for people to regularly monitor their heart health and seek medical advice based on their risk factors. With a predictive model, people can identify potential risks at an early stage and take preventive actions such as lifestyle changes, medication, or even undergoing further testing by healthcare professionals.
+        </p>
+        <p>
+            The prediction model leverages data to evaluate how various factors contribute to an individual's likelihood of experiencing heart-related issues. By inputting key information like age, gender, blood pressure, cholesterol levels, smoking habits, and physical activity into the prediction form, individuals can receive an immediate analysis of their heart disease risk.
+        </p>
+
+        <h2 class="text-center mt-4 mb-4">Key Parameters for Heart Disease Prediction</h2>
+        <p>
+            Several factors are known to influence heart health, and these are used in the model to predict an individual's risk. These factors include:
+        </p>
+        <ul>
+            <li><strong>Age</strong>: As individuals age, their risk of heart disease increases. Older adults are more likely to develop heart conditions due to the natural aging process of blood vessels and other organs.</li>
+            <li><strong>Gender</strong>: Men and women have different risk factors and symptoms for heart disease. Understanding gender-specific risks helps in refining the accuracy of the predictions.</li>
+            <li><strong>Blood Pressure</strong>: High blood pressure, or hypertension, is a major contributor to heart disease. Maintaining normal blood pressure is essential for heart health.</li>
+            <li><strong>Cholesterol Levels</strong>: Elevated cholesterol levels can cause the build-up of plaque in arteries, increasing the risk of heart attack or stroke.</li>
+            <li><strong>Smoking Status</strong>: Smoking is a known risk factor for heart disease as it damages blood vessels and raises the chances of heart attack.</li>
+            <li><strong>Exercise</strong>: Regular physical activity helps improve cardiovascular health and lowers the likelihood of developing heart disease. Lack of exercise increases the risk.</li>
+        </ul>
+
+        <h2 class="text-center mt-4 mb-4">Why Predicting Heart Disease is Important</h2>
+        <p>
+            Heart disease is often referred to as a "silent killer" because many people don’t experience symptoms until it’s too late. The prediction tool aims to give individuals an early warning, enabling them to make informed decisions about their health. Whether it’s adopting a healthier lifestyle, managing stress, quitting smoking, or taking prescribed medications, early awareness helps individuals take charge of their well-being.
+        </p>
+        <p>
+            Additionally, heart disease prediction tools serve as a vital resource for healthcare providers. By using data-driven insights, doctors can provide more targeted and personalized care plans for their patients. The predictions can also serve as a discussion starter for patients and their healthcare providers, encouraging them to explore preventive measures or consider more thorough diagnostic tests.
+        </p>
+
+        <h2 class="text-center mt-4 mb-4">Conclusion</h2>
+        <p>
+            In conclusion, heart disease prediction is not just about knowing whether or not you are at risk—it’s about empowering individuals to make healthier choices, take early action, and live longer, more fulfilling lives. By using cutting-edge tools and taking steps to maintain good heart health, we can reduce the global impact of heart disease and create a healthier future for generations to come.
+        </p>
+    </div>
+
+    <!-- Optional Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer class="bg-success text-light text-center p-3">
+        <p>&copy; 2024 HEART MAP. Developed by Zoya Nawab Ali Shaikh. All rights reserved.</p>
+    </footer>
+</body>
+</html>
