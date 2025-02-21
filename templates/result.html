@@ -38,6 +38,46 @@
         .btn-custom {
             width: 150px;
         }
+
+        /* Gradient Backgrounds */
+.gradient-workout {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+}
+.gradient-diet {
+    background: linear-gradient(45deg, #ff7f50, #ff4500); /* Coral to Deep Orange */
+    color: white;
+}
+.gradient-precautions {
+    background: linear-gradient(45deg, #ffc107, #d39e00);
+    color: white;
+}
+.gradient-appointment {
+    background: linear-gradient(45deg, #dc3545, #a71d2a);
+    color: white;
+}
+.gradient-doctors {
+    background: linear-gradient(45deg, #17a2b8, #0c7c8c);
+    color: white;
+}
+
+/* Hover Effects */
+.btn {
+    transition: all 0.3s ease-in-out;
+}
+.btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+.gradient-lifestyle {
+        background: linear-gradient(45deg, #8e44ad, #732d91);
+        color: #fff;
+        border: none;
+    }
+    .gradient-lifestyle:hover {
+        background: linear-gradient(45deg, #732d91, #5e3370);
+    }
+
     </style>
     <script>
         function showDietModal() {
@@ -53,6 +93,11 @@
     const precautionsModal = new bootstrap.Modal(document.getElementById('precautionsModal'));
     precautionsModal.show();
 }
+
+function showLifestyleModal() {
+        const lifestyleModal = new bootstrap.Modal(document.getElementById('lifestyleModal'));
+        lifestyleModal.show();
+    }
 
     </script>
 </head>
@@ -93,18 +138,51 @@
         </p>
         <br><br><br> 
         {% if has_disease %}
-        <div class="text-center">
-            <a href="javascript:void(0);" class="btn btn-primary me-4 btn-custom" onclick="showWorkoutModal()">Workout</a>
-            <a href="javascript:void(0);" class="btn btn-info me-4 btn-custom" onclick="showDietModal()">Diets</a>
-            <a href="javascript:void(0);" class="btn btn-warning me-4 btn-custom" onclick="showPrecautionsModal()">Precautions</a>
-            <a href="{{ url_for('appointment') }}" class="btn btn-coral me-4 btn-custom">Appointment</a>
-            <a href="{{ url_for('select_doctor') }}" class="btn btn-lime me-4 btn-custom">Doctors</a>
+        <div class="container text-center mt-4">
+            <div class="row g-3">
+                <div class="col-12 col-sm-6 col-md-4">
+                    <a href="javascript:void(0);" class="btn btn-lg gradient-workout w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3"
+                        onclick="showWorkoutModal()">
+                        <i class="fas fa-dumbbell me-2"></i> Workout
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <a href="javascript:void(0);" class="btn btn-lg gradient-diet w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3"
+                        onclick="showDietModal()">
+                        <i class="fas fa-utensils me-2"></i> Diets
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <a href="javascript:void(0);" class="btn btn-lg gradient-precautions w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3"
+                        onclick="showPrecautionsModal()">
+                        <i class="fas fa-heartbeat me-2"></i> Precautions
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <a href="{{ url_for('appointment') }}" class="btn btn-lg gradient-appointment w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3">
+                        <i class="fas fa-calendar-check me-2"></i> Appointment
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <a href="{{ url_for('select_doctor') }}" class="btn btn-lg gradient-doctors w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3">
+                        <i class="fas fa-user-md me-2"></i> Doctors
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <a href="javascript:void(0);" class="btn btn-lg gradient-lifestyle w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3" 
+                    onclick="showLifestyleModal()">
+                        <i class="fas fa-leaf me-2"></i> Lifestyle Tips
+                    </a>
+                </div>
+            </div>
         </div>
+        
         {% endif %}
         <br><br>
         <div class="text-center">
             <a href="/form" class="btn btn-success">Go Back</a>
         </div>
+        <br><br>
     </div>
 
     <!-- Diet Modal -->
@@ -132,6 +210,33 @@
             </div>
         </div>
     </div>
+
+   <!-- Lifestyle Tips Modal -->
+<div class="modal fade" id="lifestyleModal" tabindex="-1" aria-labelledby="lifestyleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lifestyleModalLabel">Healthy Lifestyle Tips</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Adopting a healthy lifestyle can help manage and prevent heart disease. Here are some key tips:</p>
+                <ul>
+                    <li><strong>Exercise Regularly:</strong> Engage in at least 30 minutes of moderate activity most days.</li>
+                    <li><strong>Maintain a Balanced Diet:</strong> Eat plenty of vegetables, fruits, and whole grains.</li>
+                    <li><strong>Avoid Smoking & Alcohol:</strong> These can significantly impact heart health.</li>
+                    <li><strong>Manage Stress:</strong> Practice relaxation techniques like meditation and deep breathing.</li>
+                    <li><strong>Stay Hydrated:</strong> Drink plenty of water to keep your body functioning optimally.</li>
+                    <li><strong>Regular Checkups:</strong> Visit your doctor for routine health assessments.</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <!-- Workout Modal -->
     <div class="modal fade" id="workoutModal" tabindex="-1" aria-labelledby="workoutModalLabel" aria-hidden="true">
@@ -191,6 +296,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
 </body>
 </html>
