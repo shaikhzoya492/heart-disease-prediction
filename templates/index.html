@@ -4,6 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HEART MAP</title>
+    <style>
+        .card-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%; /* Make card take full width on mobile */
+            max-width: 300px; /* Limit max width on larger screens */
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .card-content h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .card-content p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .card-container {
+                justify-content: center; /* Center cards on smaller screens */
+            }
+
+            .card {
+                margin-bottom: 20px; /* Add some space between cards */
+            }
+
+            .carousel-inner img {
+                height: 300px; /* Reduce carousel image height on mobile */
+            }
+        }
+    </style>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -11,8 +70,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
@@ -24,22 +81,21 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="adminlogin"><i class="fa-solid fa-right-to-bracket"></i> ADMIN</a>
+                        <a class="nav-link active" href="adminlogin"><i class="fa-solid fa-right-to-bracket"></i> ADMIN</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="doctorlogin">DOCTOR</a>
+                        <a class="nav-link active" href="doctorlogin">DOCTOR</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="user_login">PREDICTION</a>
+                        <a class="nav-link active" href="predictionpage">PREDICTION</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="user_login">USER</a>
+                        <a class="nav-link active" href="user_login">USER</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -48,13 +104,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ url_for('static', filename='doc1.avif') }}" class="d-block w-100" alt="Slide 1" height="500">
+                <img src="{{ url_for('static', filename='doc1.avif') }}" class="d-block w-100" alt="Slide 1">
             </div>
             <div class="carousel-item">
-                <img src="{{ url_for('static', filename='doc2.avif') }}" class="d-block w-100" alt="Slide 2" height="500">
+                <img src="{{ url_for('static', filename='doc2.avif') }}" class="d-block w-100" alt="Slide 2">
             </div>
             <div class="carousel-item">
-                <img src="{{ url_for('static', filename='doc3.avif') }}" class="d-block w-100" alt="Slide 3" height="500">
+                <img src="{{ url_for('static', filename='doc3.avif') }}" class="d-block w-100" alt="Slide 3">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -76,7 +132,7 @@
                         <div class="card paint-card">
                             <div class="card-body">
                                 <p class="fs-5">100% Safety</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, inventore</p>
+                                <p>We ensure your safety with advanced protocols and expert care, providing a secure environment.</p>
                             </div>
                         </div>
                     </div>
@@ -84,7 +140,7 @@
                         <div class="card paint-card">
                             <div class="card-body">
                                 <p class="fs-5">Clean Environment</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, inventore</p>
+                                <p>Experience a spotless and hygienic space, maintained to the highest standards for your well-being.</p>
                             </div>
                         </div>
                     </div>
@@ -92,7 +148,7 @@
                         <div class="card paint-card">
                             <div class="card-body">
                                 <p class="fs-5">Friendly Doctors</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, inventore</p>
+                                <p>Our compassionate doctors are here to listen, care, and guide you with warmth and expertise.</p>
                             </div>
                         </div>
                     </div>
@@ -100,17 +156,66 @@
                         <div class="card paint-card">
                             <div class="card-body">
                                 <p class="fs-5">Medical Research</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, inventore</p>
+                                <p>Committed to innovation, our cutting-edge research drives better treatments and brighter futures.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <img src="{{ url_for('static', filename='doc.avif') }}" alt="Doctor" width="400" height="380">
+                <img src="{{ url_for('static', filename='doc.avif') }}" alt="Doctor" class="img-fluid">
             </div>
         </div>
-    </div>
+
+</div>
+        <section class="bg-success text-white py-5">
+            <div class="container text-center">
+                <h2 class="display-4 font-weight-bold">Welcome to Our Heart Disease Hospital</h2>
+                <p class="lead my-4">Your heart health is our priority. With state-of-the-art facilities, experienced cardiologists, and a compassionate team, we provide comprehensive heart care. From prevention and diagnosis to treatment and rehabilitation, we offer personalized care plans tailored to your needs.</p>
+                <p class="mb-4">Whether you're dealing with heart disease or simply seeking expert advice on heart health, we're here to help you live a longer, healthier life. Trust us to be your partner in managing and improving your heart health.</p>
+                <p class="mb-4">Our hospital is equipped with the latest diagnostic tools and technologies to accurately identify heart conditions. We focus on both treating existing conditions and preventing future risks, providing you with the best possible care every step of the way.</p>
+                <p class="mb-4">Our team of dedicated specialists is here to guide you through every aspect of your heart health journey. With personalized care plans, we ensure that every patient receives the attention and support they need to recover and maintain optimal heart health.</p>
+                <a href="user_login" class="btn btn-light text-dark">Make an Appointment</a>
+            </div>
+        </section>
+        
+        <div class="container p-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='heart1.png') }}" alt="Card Image 1" class="card-img-top">
+                        <div class="card-body">
+                            <h3 class="card-title">HEART FAILURE</h3>
+                            <p class="card-text">It occurs when the heart is unable to pump blood effectively, leading to inadequate oxygen supply to the body.
+                                It can result from conditions like coronary artery disease, high blood pressure, or previous heart attacks.Early detection and treatment can improve quality of life and prevent further complications.</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='heart2.png') }}" alt="Card Image 2" class="card-img-top">
+                        <div class="card-body">
+                            <h3 class="card-title">HEART ATTACK</h3>
+                            <p class="card-text">It occurs when blood flow to a part of the heart is blocked, causing damage to the heart muscle.
+                                It can result from clogged arteries due to plaque buildup or other heart-related conditions.Quick medical intervention is crucial to prevent severe damage and improve survival chances.</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='heart3.png') }}" alt="Card Image 3" class="card-img-top">
+                        <div class="card-body">
+                            <h3 class="card-title">HEART DISEASE PREDICTION</h3>
+                            <p class="card-text">It helps assess the risk of heart conditions using key health indicators like age, and cholesterol levels.
+                                Our system provides quick, reliable predictions to guide early intervention and preventive care.Take control of your heart health with our easy-to-use prediction tool.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 
     <footer class="bg-success text-light text-center p-3">
         <p>&copy; 2024 HEART MAP. Developed by Zoya Nawab Ali Shaikh. All rights reserved.</p>
