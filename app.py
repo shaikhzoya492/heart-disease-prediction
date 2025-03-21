@@ -16,10 +16,10 @@ app.secret_key = '111'
 
 # PostgreSQL database connection configuration
 db_config = {
-    'dbname': 'heart_map',
-    'user': 'heart_map_user',
-    'password': 'EKxqZirug8cIJDOdyUrh69H1l8223MIq',
-    'host': 'dpg-csq7bvi3esus73embgjg-a',
+    'dbname': 'heartmap-heartdisease-prediction',
+    'user': 'heartmap',
+    'password': 'bgU1eeLExEy3frLF81G63S5YRx1MT63Q',
+    'host': 'dpg-cveke8ofnakc738fhi10-a',
     'port': '5432'
 }
 
