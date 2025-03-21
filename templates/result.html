@@ -25,6 +25,9 @@
             margin: 0;
             display: flex;
             flex-direction: column;
+            height: 100%;
+    background: url('static/result.jpg') no-repeat center center fixed;
+    background-size: cover;
         }
         .container {
             flex: 1;
@@ -139,36 +142,26 @@ function showLifestyleModal() {
         <br><br><br> 
         {% if has_disease %}
         <div class="container text-center mt-4">
-            <div class="row g-3">
-                <div class="col-12 col-sm-6 col-md-4">
+            <div class="row g-4">
+                <div class="col-12 col-sm-6 col-md-3">
                     <a href="javascript:void(0);" class="btn btn-lg gradient-workout w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3"
                         onclick="showWorkoutModal()">
                         <i class="fas fa-dumbbell me-2"></i> Workout
                     </a>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4">
+                <div class="col-12 col-sm-6 col-md-3">
                     <a href="javascript:void(0);" class="btn btn-lg gradient-diet w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3"
                         onclick="showDietModal()">
                         <i class="fas fa-utensils me-2"></i> Diets
                     </a>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4">
+                <div class="col-12 col-sm-6 col-md-3">
                     <a href="javascript:void(0);" class="btn btn-lg gradient-precautions w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3"
                         onclick="showPrecautionsModal()">
                         <i class="fas fa-heartbeat me-2"></i> Precautions
                     </a>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <a href="{{ url_for('appointment') }}" class="btn btn-lg gradient-appointment w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3">
-                        <i class="fas fa-calendar-check me-2"></i> Appointment
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <a href="{{ url_for('select_doctor') }}" class="btn btn-lg gradient-doctors w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3">
-                        <i class="fas fa-user-md me-2"></i> Doctors
-                    </a>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
+                <div class="col-12 col-sm-6 col-md-3">
                     <a href="javascript:void(0);" class="btn btn-lg gradient-lifestyle w-100 rounded-4 shadow-sm d-flex align-items-center justify-content-center py-3" 
                     onclick="showLifestyleModal()">
                         <i class="fas fa-leaf me-2"></i> Lifestyle Tips
