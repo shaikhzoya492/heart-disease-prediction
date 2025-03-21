@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash 
 import mysql.connector
 from flask import session
+import psycopg2
 import pickle
 import os
-from mysql.connector import Error
+from psycopg2 import Error
 
 
 # Load the heart disease model
@@ -39,8 +40,8 @@ def appointment():
     cursor = None
     appointment_list = []
     try:
-        db = mysql.connector.connect(**db_config)
-        cursor = db.cursor(dictionary=True)
+        db = psycopg2.connect(**db_config)
+        cursor = db.cursor()
         cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
@@ -86,8 +87,8 @@ def select_doctor():
     cursor = None
     doctors = []
     try:
-        db = mysql.connector.connect(**db_config)
-        cursor = db.cursor(dictionary=True)
+        db = psycopg2.connect(**db_config)
+        cursor = db.cursor()
         cursor.execute("SELECT fullname, qualification, phone FROM doctors")
         doctors = cursor.fetchall()
     except Error as e:
@@ -103,8 +104,8 @@ def check_credentials(email, password):
     db = None
     cursor = None
     try:
-        db = mysql.connector.connect(**db_config)
-        cursor = db.cursor(dictionary=True)
+        db = psycopg2.connect(**db_config)
+        cursor = db.cursor()
         cursor.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
         user = cursor.fetchone()
         return user is not None
@@ -142,8 +143,8 @@ def logout():
     return redirect(url_for('user_login')) 
 
 def check_credential(email, password):
-    connection = mysql.connector.connect(**db_config)
-    cursor = connection.cursor(dictionary=True)
+    connection = psycopg2.connect(**db_config)
+    cursor = connection.cursor()
     query = "SELECT * FROM doctors WHERE email = %s AND password = %s"  
     cursor.execute(query, (email, password))
     doctor = cursor.fetchone()
@@ -172,7 +173,7 @@ def doctor_login():
 @app.route('/adminpage')
 def admin_page():
     
-    connection = mysql.connector.connect(**db_config)
+    connection = psycopg2.connect(**db_config)
     cursor = connection.cursor()
 
 
@@ -220,8 +221,8 @@ def view_appointments():
     cursor = None
     appointment_list = []
     try:
-        db = mysql.connector.connect(**db_config)
-        cursor = db.cursor(dictionary=True)
+        db = psycopg2.connect(**db_config)
+        cursor = db.cursor()
         cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
@@ -240,8 +241,8 @@ def view_doctors():
     cursor = None
     doctor_list = []
     try:
-        db = mysql.connector.connect(**db_config)
-        cursor = db.cursor(dictionary=True)
+        db = psycopg2.connect(**db_config)
+        cursor = db.cursor()
         cursor.execute("SELECT fullname, dob, qualification, email, phone FROM doctors")
         doctor_list = cursor.fetchall()
     except Error as e:
@@ -263,7 +264,7 @@ def user_register():
     db = None
     cursor = None
     try:
-        db = mysql.connector.connect(**db_config)
+        db = psycopg2.connect(**db_config)
         cursor = db.cursor()
         sql = "INSERT INTO users (fullname, email, phone, password) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (fullname, email, phone, password))
@@ -297,7 +298,7 @@ def user_appointment():
     db1 = None
     cursor1 = None
     try:
-        db1 = mysql.connector.connect(**db_config)
+        db1 = psycopg2.connect(**db_config)
         cursor1 = db1.cursor()
         sql = """
         INSERT INTO appointments (fullname, gender, age, appoindate, email, phno, diseases, doctor, address)
@@ -334,7 +335,7 @@ def userappointment():
     db1 = None
     cursor1 = None
     try:
-        db1 = mysql.connector.connect(**db_config)
+        db1 = psycopg2.connect(**db_config)
         cursor1 = db1.cursor()
         sql = """
         INSERT INTO appointments (fullname, gender, age, appoindate, email, phno, diseases, doctor, address)
@@ -367,7 +368,7 @@ def doctor_register():
     db = None
     cursor = None
     try:
-        db = mysql.connector.connect(**db_config)
+        db = psycopg2.connect(**db_config)
         cursor = db.cursor()
         sql = "INSERT INTO doctors (fullname, dob, qualification, email, phone, password) VALUES (%s, %s, %s, %s, %s, %s)"
         cursor.execute(sql, (fullname, dob, qualification, email, phone, password))
@@ -391,8 +392,8 @@ def view_users():
     cursor = None
     user_list = []
     try:
-        db = mysql.connector.connect(**db_config)
-        cursor = db.cursor(dictionary=True)
+        db = psycopg2.connect(**db_config)
+        cursor = db.cursor()
         cursor.execute("SELECT fullname, email, phone FROM users")  # Adjust fields as necessary
         user_list = cursor.fetchall()
     except Error as e:
@@ -410,8 +411,8 @@ def doctorpage():
     cursor = None
     appointment_list = []
     try:
-        db = mysql.connector.connect(**db_config)
-        cursor = db.cursor(dictionary=True)
+        db = psycopg2.connect(**db_config)
+        cursor = db.cursor()
         cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
