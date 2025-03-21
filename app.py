@@ -1,14 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, flash 
 import mysql.connector
 from flask import session
-import psycopg2
 import pickle
 import os
-from psycopg2 import Error
+from mysql.connector import Error
 
 
-# Load the heart disease model
-model_path = 'heart_disease_model.pkl'
+model_path = 'C:\\Users\\Zoya\\Heart disease prediction\\heart_disease_model.pkl'
 with open(model_path, 'rb') as file:
     loaded_model = pickle.load(file)
 
@@ -16,15 +14,13 @@ app = Flask(__name__)
 app.secret_key = '111'
 
 db_config = {
-    'dbname': 'heart_map_fnp6',
-    'user': 'heartmap',
-    'password': 'bgU1eeLExEy3frLF81G63S5YRx1MT63Q',
-    'host': 'dpg-cveke8ofnakc738fhi10-a',
-    'port': '5432',
-    'sslmode': 'require'  # Ensure SSL is required
+    'user': 'root',
+    'password': 'root',
+    'host': 'localhost',
+    'database': 'heart_map',
+    'charset': 'utf8'
 }
 
-# Route for home/index page
 @app.route('/')
 @app.route('/index')
 def index():
@@ -40,8 +36,8 @@ def appointment():
     cursor = None
     appointment_list = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
@@ -87,8 +83,8 @@ def select_doctor():
     cursor = None
     doctors = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT fullname, qualification, phone FROM doctors")
         doctors = cursor.fetchall()
     except Error as e:
@@ -104,8 +100,8 @@ def check_credentials(email, password):
     db = None
     cursor = None
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
         user = cursor.fetchone()
         return user is not None
@@ -143,8 +139,8 @@ def logout():
     return redirect(url_for('user_login')) 
 
 def check_credential(email, password):
-    connection = psycopg2.connect(**db_config)
-    cursor = connection.cursor()
+    connection = mysql.connector.connect(**db_config)
+    cursor = connection.cursor(dictionary=True)
     query = "SELECT * FROM doctors WHERE email = %s AND password = %s"  
     cursor.execute(query, (email, password))
     doctor = cursor.fetchone()
@@ -173,7 +169,7 @@ def doctor_login():
 @app.route('/adminpage')
 def admin_page():
     
-    connection = psycopg2.connect(**db_config)
+    connection = mysql.connector.connect(**db_config)
     cursor = connection.cursor()
 
 
@@ -221,8 +217,8 @@ def view_appointments():
     cursor = None
     appointment_list = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
@@ -241,8 +237,8 @@ def view_doctors():
     cursor = None
     doctor_list = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT fullname, dob, qualification, email, phone FROM doctors")
         doctor_list = cursor.fetchall()
     except Error as e:
@@ -264,7 +260,7 @@ def user_register():
     db = None
     cursor = None
     try:
-        db = psycopg2.connect(**db_config)
+        db = mysql.connector.connect(**db_config)
         cursor = db.cursor()
         sql = "INSERT INTO users (fullname, email, phone, password) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (fullname, email, phone, password))
@@ -298,7 +294,7 @@ def user_appointment():
     db1 = None
     cursor1 = None
     try:
-        db1 = psycopg2.connect(**db_config)
+        db1 = mysql.connector.connect(**db_config)
         cursor1 = db1.cursor()
         sql = """
         INSERT INTO appointments (fullname, gender, age, appoindate, email, phno, diseases, doctor, address)
@@ -335,7 +331,7 @@ def userappointment():
     db1 = None
     cursor1 = None
     try:
-        db1 = psycopg2.connect(**db_config)
+        db1 = mysql.connector.connect(**db_config)
         cursor1 = db1.cursor()
         sql = """
         INSERT INTO appointments (fullname, gender, age, appoindate, email, phno, diseases, doctor, address)
@@ -368,7 +364,7 @@ def doctor_register():
     db = None
     cursor = None
     try:
-        db = psycopg2.connect(**db_config)
+        db = mysql.connector.connect(**db_config)
         cursor = db.cursor()
         sql = "INSERT INTO doctors (fullname, dob, qualification, email, phone, password) VALUES (%s, %s, %s, %s, %s, %s)"
         cursor.execute(sql, (fullname, dob, qualification, email, phone, password))
@@ -392,8 +388,8 @@ def view_users():
     cursor = None
     user_list = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT fullname, email, phone FROM users")  # Adjust fields as necessary
         user_list = cursor.fetchall()
     except Error as e:
@@ -411,8 +407,8 @@ def doctorpage():
     cursor = None
     appointment_list = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
