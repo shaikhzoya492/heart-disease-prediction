@@ -16,7 +16,7 @@ app.secret_key = '111'
 
 # PostgreSQL database connection configuration
 db_config = {
-    'dbname': 'heartmap-heartdisease-prediction',
+    'dbname': 'heart_map_fnp6',
     'user': 'heartmap',
     'password': 'bgU1eeLExEy3frLF81G63S5YRx1MT63Q',
     'host': 'dpg-cveke8ofnakc738fhi10-a',
