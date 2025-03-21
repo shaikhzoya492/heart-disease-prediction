@@ -16,12 +16,15 @@
             margin: 0;
             display: flex;
             flex-direction: column;
+            background: url('static/appointment.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
         .container {
             flex: 1;
         }
         .paint-card {
             box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+            background-color:rgba(255, 255, 255, 0.8); /* Transparent background */
         }
     </style>
 </head>
@@ -70,22 +73,22 @@
                             <th>Phone</th>
                             <th>Diseases</th>
                             <th>Doctor</th>
-                            <th>Address</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         {% for appointment in appointments %}
-                          <tr>
-                                    <td>{{ appointment[0] }}</td> <!-- fullname -->
-                                    <td>{{ appointment[1] }}</td> <!-- gender -->
-                                    <td>{{ appointment[2] }}</td> <!-- age -->
-                                    <td>{{ appointment[3] }}</td> <!-- appoindate -->
-                                    <td>{{ appointment[4] }}</td> <!-- email -->
-                                    <td>{{ appointment[5] }}</td> <!-- phno -->
-                                    <td>{{ appointment[6] }}</td> <!-- diseases -->
-                                    <td>{{ appointment[7] }}</td> <!-- doctor -->
-                                    <td>{{ appointment[8] }}</td> <!-- address -->
-                                </tr>
+                        <tr>
+                            <td>{{ appointment.fullname }}</td>
+                            <td>{{ appointment.gender }}</td>
+                            <td>{{ appointment.age }}</td>
+                            <td>{{ appointment.appoindate }}</td>
+                            <td>{{ appointment.email }}</td>
+                            <td>{{ appointment.phno }}</td>
+                            <td>{{ appointment.diseases }}</td>
+                            <td>{{ appointment.doctor }}</td>
+                           
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
