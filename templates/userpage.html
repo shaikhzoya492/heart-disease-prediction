@@ -11,20 +11,43 @@
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <style type="text/css"> 
+    <style>
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            margin: 0;
+            background: url('static/user.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .container {
+            flex: 1;
         }
         .dashboard-card {
+            background-color:rgba(255, 255, 255, 0.8); /* Transparent background */
+            color: white; /* Light text for dark background */
+            
+            border: 1px solid rgba(255, 255, 255, 0.3);
             transition: transform 0.2s;
         }
         .dashboard-card:hover {
             transform: scale(1.05);
         }
+        .dashboard-card .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 250px; /* Ensures equal card size */
+        }
+        .dashboard-card .card-title,
+        .dashboard-card .card-text {
+            color: black; /* Ensures text visibility */
+        }
         footer {
             margin-top: auto;
+            padding: 15px;
+            color: white;
+            text-align: center;
         }
     </style>
 </head>
@@ -47,10 +70,7 @@
         </div>
     </nav>
 
-    <div class="container p-5">
-        <h2 class="text-center mb-4">Welcome, {{ fullname }}!</h2>
-        <p class="text-center">Explore the options available for your healthcare needs.</p>
-
+    <div class="container p-5 mt-5">
         <div class="row mt-5">
             <div class="col-md-4">
                 <div class="card dashboard-card shadow-sm">
@@ -87,7 +107,7 @@
         </div>
     </div>
 
-    <footer class="bg-success text-light text-center p-3 mt-5">
+    <footer class="bg-success">
         <p>&copy; 2024 HEART MAP. Developed by Zoya Nawab Ali Shaikh. All rights reserved.</p>
     </footer>
 
