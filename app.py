@@ -14,13 +14,13 @@ with open(model_path, 'rb') as file:
 app = Flask(__name__)
 app.secret_key = '111'
 
-# PostgreSQL database connection configuration
 db_config = {
     'dbname': 'heart_map_fnp6',
     'user': 'heartmap',
     'password': 'bgU1eeLExEy3frLF81G63S5YRx1MT63Q',
     'host': 'dpg-cveke8ofnakc738fhi10-a.oregon-postgres.render.com',
-    'port': '5432'
+    'port': '5432',
+    'sslmode': 'require'  # Ensure SSL is required
 }
 
 # Route for home/index page
