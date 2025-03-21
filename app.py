@@ -1,28 +1,26 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-import psycopg2
+from flask import Flask, render_template, request, redirect, url_for, flash 
+import mysql.connector
 from flask import session
 import pickle
 import os
-from psycopg2 import Error
+from mysql.connector import Error
 
-# Load the heart disease model
-model_path = 'heart_disease_model.pkl'
+
+model_path = 'C:\\Users\\Zoya\\Heart disease prediction\\heart_disease_model.pkl'
 with open(model_path, 'rb') as file:
     loaded_model = pickle.load(file)
 
 app = Flask(__name__)
 app.secret_key = '111'
 
-# PostgreSQL database connection configuration
 db_config = {
-    'dbname': 'heart_map',
-    'user': 'heart_map_user',
-    'password': 'EKxqZirug8cIJDOdyUrh69H1l8223MIq',
-    'host': 'dpg-csq7bvi3esus73embgjg-a',
-    'port': '5432'
+    'user': 'root',
+    'password': 'root',
+    'host': 'localhost',
+    'database': 'heart_map',
+    'charset': 'utf8'
 }
 
-# Route for home/index page
 @app.route('/')
 @app.route('/index')
 def index():
@@ -38,9 +36,9 @@ def appointment():
     cursor = None
     appointment_list = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
-        cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM public.appointments")
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
         flash(f'Error fetching appointment data: {str(e)}', 'danger')
@@ -73,6 +71,7 @@ def predict():
 
     prediction = loaded_model.predict([inputs])
 
+
     has_disease = prediction[0] == 1
     message = "You have been diagnosed with heart disease. It's important to take immediate steps to manage your health." if has_disease else "You do not have heart disease. Keep up your healthy lifestyle and continue making choices that support your heart health!"
 
@@ -84,9 +83,9 @@ def select_doctor():
     cursor = None
     doctors = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
-        cursor.execute("SELECT fullname, qualification, phone FROM public.doctors")
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("SELECT fullname, qualification, phone FROM doctors")
         doctors = cursor.fetchall()
     except Error as e:
         flash(f'Error fetching doctor data: {str(e)}', 'danger')
@@ -101,8 +100,8 @@ def check_credentials(email, password):
     db = None
     cursor = None
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
         user = cursor.fetchone()
         return user is not None
@@ -135,13 +134,14 @@ def user_page():
 
 @app.route('/logout')
 def logout():
+   
     flash('You have logged out successfully!', 'success')
     return redirect(url_for('user_login')) 
 
 def check_credential(email, password):
-    connection = psycopg2.connect(**db_config)
-    cursor = connection.cursor()
-    query = "SELECT * FROM doctors WHERE email = %s AND password = %s"  # Adjust the table name if necessary
+    connection = mysql.connector.connect(**db_config)
+    cursor = connection.cursor(dictionary=True)
+    query = "SELECT * FROM doctors WHERE email = %s AND password = %s"  
     cursor.execute(query, (email, password))
     doctor = cursor.fetchone()
     cursor.close()
@@ -165,10 +165,13 @@ def doctor_login():
             error_msg = 'Invalid email or password' 
     return render_template('doctorlogin.html', error_msg=error_msg, suc_msg=suc_msg)  
 
+
 @app.route('/adminpage')
 def admin_page():
-    connection = psycopg2.connect(**db_config)
+    
+    connection = mysql.connector.connect(**db_config)
     cursor = connection.cursor()
+
 
     cursor.execute("SELECT COUNT(*) FROM doctors")
     doctor_count = cursor.fetchone()[0]
@@ -184,6 +187,7 @@ def admin_page():
 
     return render_template('adminpage.html', doctor_count=doctor_count, user_count=user_count, appointment_count=appointment_count)
 
+
 @app.route('/appointment_page', methods=['GET'])
 def appointment_page():
     appointment_message = request.args.get('appointment_message', '')  # Get appointment message from query params
@@ -197,6 +201,10 @@ def admin_login():
 def form():
     return render_template('form.html')
 
+@app.route('/predictionpage')
+def prediction_page():
+    return render_template('predictionpage.html')
+
 @app.route('/doctor', methods=['GET', 'POST'])
 def doctor_page():
     if request.method == 'POST':
@@ -209,9 +217,9 @@ def view_appointments():
     cursor = None
     appointment_list = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
-        cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM public.appointments")
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
         flash(f'Error fetching appointment data: {str(e)}', 'danger')
@@ -222,15 +230,16 @@ def view_appointments():
             db.close()
     return render_template('view_appointments.html', appointments=appointment_list)
 
+
 @app.route('/viewdoctors')
 def view_doctors():
     db = None
     cursor = None
     doctor_list = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
-        cursor.execute("SELECT fullname, dob, qualification, email, phone FROM public.doctors")
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("SELECT fullname, dob, qualification, email, phone FROM doctors")
         doctor_list = cursor.fetchall()
     except Error as e:
         flash(f'Error fetching doctor data: {str(e)}', 'danger')
@@ -251,7 +260,7 @@ def user_register():
     db = None
     cursor = None
     try:
-        db = psycopg2.connect(**db_config)
+        db = mysql.connector.connect(**db_config)
         cursor = db.cursor()
         sql = "INSERT INTO users (fullname, email, phone, password) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (fullname, email, phone, password))
@@ -285,7 +294,7 @@ def user_appointment():
     db1 = None
     cursor1 = None
     try:
-        db1 = psycopg2.connect(**db_config)
+        db1 = mysql.connector.connect(**db_config)
         cursor1 = db1.cursor()
         sql = """
         INSERT INTO appointments (fullname, gender, age, appoindate, email, phno, diseases, doctor, address)
@@ -322,7 +331,7 @@ def userappointment():
     db1 = None
     cursor1 = None
     try:
-        db1 = psycopg2.connect(**db_config)
+        db1 = mysql.connector.connect(**db_config)
         cursor1 = db1.cursor()
         sql = """
         INSERT INTO appointments (fullname, gender, age, appoindate, email, phno, diseases, doctor, address)
@@ -355,7 +364,7 @@ def doctor_register():
     db = None
     cursor = None
     try:
-        db = psycopg2.connect(**db_config)
+        db = mysql.connector.connect(**db_config)
         cursor = db.cursor()
         sql = "INSERT INTO doctors (fullname, dob, qualification, email, phone, password) VALUES (%s, %s, %s, %s, %s, %s)"
         cursor.execute(sql, (fullname, dob, qualification, email, phone, password))
@@ -379,8 +388,8 @@ def view_users():
     cursor = None
     user_list = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT fullname, email, phone FROM users")  # Adjust fields as necessary
         user_list = cursor.fetchall()
     except Error as e:
@@ -398,8 +407,8 @@ def doctorpage():
     cursor = None
     appointment_list = []
     try:
-        db = psycopg2.connect(**db_config)
-        cursor = db.cursor()
+        db = mysql.connector.connect(**db_config)
+        cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT fullname, gender, age, appoindate, email, phno, diseases, doctor, address FROM appointments")
         appointment_list = cursor.fetchall()
     except Error as e:
