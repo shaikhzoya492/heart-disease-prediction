@@ -18,7 +18,7 @@ db_config = {
     'dbname': 'heart_map_fnp6',
     'user': 'heartmap',
     'password': 'bgU1eeLExEy3frLF81G63S5YRx1MT63Q',
-    'host': 'dpg-cveke8ofnakc738fhi10-a.oregon-postgres.render.com',
+    'host': 'dpg-cveke8ofnakc738fhi10-a',
     'port': '5432',
     'sslmode': 'require'  # Ensure SSL is required
 }
