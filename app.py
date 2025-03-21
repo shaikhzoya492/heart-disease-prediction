@@ -6,21 +6,24 @@ import os
 from mysql.connector import Error
 
 
-model_path = 'C:\\Users\\Zoya\\Heart disease prediction\\heart_disease_model.pkl'
+# Load the heart disease model
+model_path = 'heart_disease_model.pkl'
 with open(model_path, 'rb') as file:
     loaded_model = pickle.load(file)
 
 app = Flask(__name__)
 app.secret_key = '111'
 
+# PostgreSQL database connection configuration
 db_config = {
-    'user': 'root',
-    'password': 'root',
-    'host': 'localhost',
-    'database': 'heart_map',
-    'charset': 'utf8'
+    'dbname': 'heart_map',
+    'user': 'heart_map_user',
+    'password': 'EKxqZirug8cIJDOdyUrh69H1l8223MIq',
+    'host': 'dpg-csq7bvi3esus73embgjg-a',
+    'port': '5432'
 }
 
+# Route for home/index page
 @app.route('/')
 @app.route('/index')
 def index():
